@@ -16,7 +16,7 @@ OBJS=$(SCRS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A) -lXext -lX11 -lm
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A) -lXext -lX11 -lm -lglfw
 
 $(GNL_A):
 	$(MAKE) -C $(GNL)
@@ -33,7 +33,6 @@ $(MLX_A):
 clean:
 	${MAKE} -C $(GNL) clean
 	${MAKE} -C $(LIBFT) clean
-	${MAKE} -C $(MLX) clean
 	$(RM) $(OBJS)
 
 fclean: clean
