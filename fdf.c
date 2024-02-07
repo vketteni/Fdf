@@ -6,104 +6,159 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 10:45:58 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/06 19:06:04 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/07 19:56:25 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/fdf.h"
 
-# define WIDTH 520
-# define HEIGHT 520
-
-typedef struct	s_superv {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-}				t_superv;
-
-// int	create_window(void *mlx, t_superv data)
-// {
-// 	// mlx_image_to_window(mlx, )
-// 	return (EXIT_SUCCESS);
-// }
-
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+t_param	*parse_map(char *map_file, t_param *param)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	int		map_fd;
+	char	*line;
+	char	**row;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	map_fd = open(map_file, O_RDONLY);
+	if (map_fd < 0)
+		return (NULL);
+	line = get_next_line(map_fd);
+	while (line != NULL)
+	{
+		line = ft_strtrim(line, "\n ");
+		if (line == NULL)
+		{
+			close (map_fd);
+			return (NULL);
+		}
+		row = ft_split(line, ' ');
+		if (row == NULL)
+		{
+			close (map_fd);
+			free(line);
+			return (NULL);
+		}
+		while (row[x] != NULL)
+		{
+			param->all_coordinates[y][x].x = ft_atoi(x);
+			param->all_coordinates[y][x].y = ft_atoi(y);
+			param->all_coordinates[y][x].z = ft_atoi(row[x]);
+			x++;
+		}
+		y++;
+		free(line);
+		line = get_next_line(map_fd);
+	}
+	close (map_fd);
+	return (param);
 }
 
-void	ft_randomize(void *param)
+int	initialize_coordinates(char *map_file, t_param *param)
 {
-	t_superv *superv = (t_superv *)param;
-	for (uint32_t x = 0; x < superv->image->width; ++x)
+	int		number_of_lines;
+	int		points_per_line;
+	char	**first_line;
+	int		map_fd;
+
+	number_of_lines = 0;
+	points_per_line = 0;
+	map_fd = open(map_file, O_RDONLY);
+	if (map_fd < 0)
+		return (-1);
+	first_line = ft_split(get_next_line(map_fd), ' ');
+	if (first_line == NULL)
+		return (-1);
+	while (first_line[points_per_line] != '\n')
+		points_per_line++;
+	number_of_lines++;
+	while (get_next_line(map_fd))
+		number_of_lines++;
+	close(map_fd);
+	param->all_coordinates = (t_coordinate **)malloc((sizeof(t_coordinate *)
+				* number_of_lines) + (sizeof(t_coordinate) * (number_of_lines
+					* points_per_line)));
+	if (param->all_coordinates == NULL)
+		return (-1);
+}
+
+int	initialize_param(int argc, char **argv, t_param *param)
+{
+	int		map_fd;
+
+	param = (t_param *)malloc(sizeof(t_param));
+	if (!param)
+		return (-1);
+	if (initialize_coordinates(argv[1], param) == -1)
+		return (-1);
+	if (parse_map(argv[1], param) == NULL)
+		return (-1);
+	
+}
+
+void	free_coordinates(t_coordinate ***all_coordinates)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (all_coordinates[i])
 	{
-		for (uint32_t y = 0; y < superv->image->height; ++y)
-		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF,
-				rand() % 0xFF,
-				rand() % 0xFF,
-				rand() % 0xFF
-			);
-			mlx_put_pixel(superv->image, x, y, color); // prohibited
-		}
+		j = 0;
+		while (all_coordinates[i][j] != NULL)
+			free(all_coordinates[i][j++]);
+		free(all_coordinates[i++]);
 	}
 }
 
-void	ft_hook(void *param)
+void	free_param(t_param *param)
 {
-	t_superv *superv;
-	
-	superv = (t_superv *)param;
-	if (mlx_is_key_down(superv->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(superv->mlx);
-	if (mlx_is_key_down(superv->mlx, MLX_KEY_UP))
-		superv->image->instances[0].y -= 5;
-	if (mlx_is_key_down(superv->mlx, MLX_KEY_DOWN))
-		superv->image->instances[0].y += 5;
-	if (mlx_is_key_down(superv->mlx, MLX_KEY_LEFT))
-		superv->image->instances[0].x -= 5;
-	if (mlx_is_key_down(superv->mlx, MLX_KEY_RIGHT))
-		superv->image->instances[0].x += 5;
+	if (param->all_coordinates)
+		free_coordinates(param->all_coordinates);
+	if (param->image)
+		mlx_delete_image(param->mlx, param->image);
+	if (param->mlx)
+		mlx_terminate(param->mlx);
+	free(param);
 }
-
-// void	initialize_super_variable(t_superv *superv)
-// {
-// 	return ;
-// }
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	t_superv		*superv;
+	t_param	*param;
 
-	superv = (t_superv *)malloc(sizeof(t_superv));
-	if (!superv)
+	param = NULL;
+	if (argc != 2)
 		return (EXIT_FAILURE);
-	// if (argc != 2)
-	// 	return(EXIT_FAILURE);
-	if (!(superv->mlx = mlx_init(WIDTH, HEIGHT, "42Berlin", true)))
+	if (initialize_param(argc, argv, param) == -1)
 	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(superv->image = mlx_new_image(superv->mlx, 128, 128)))
-	{
-		mlx_close_window(superv->mlx);
-		puts(mlx_strerror(mlx_errno));
+		free_param(param);
 		return (EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(superv->mlx, superv->image, 0, 0) == -1)
-	{
-		mlx_close_window(superv->mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-
-	mlx_loop_hook(superv->mlx, ft_randomize, superv);
-	mlx_loop_hook(superv->mlx, ft_hook, superv);
-
-	mlx_loop(superv->mlx);
-	mlx_terminate(superv->mlx);
-	return(EXIT_SUCCESS);
+	// param->mlx = mlx_init(WIDTH, HEIGHT, "42Berlin", true);
+	// if (!(param->mlx))
+	// {
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	free_param(param);
+	// 	return (EXIT_FAILURE);
+	// }
+	// param->image = mlx_new_image(param->mlx, 128, 128);
+	// if (!(param->image))
+	// {
+	// 	mlx_close_window(param->mlx);
+	// 	free_param(param);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	return (EXIT_FAILURE);
+	// }
+	// if (mlx_image_to_window(param->mlx, param->image, 0, 0) == -1)
+	// {
+	// 	mlx_close_window(param->mlx);
+	// 	free_param(param);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	return (EXIT_FAILURE);
+	// }
+	// mlx_loop(param->mlx);
+	// mlx_terminate(param->mlx);
+	return (EXIT_SUCCESS);
 }

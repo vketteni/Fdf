@@ -1,10 +1,10 @@
 NAME=fdf
 GNL=get_next_line/
 LIBFT=libft/
-MLX=MLX42/
-GNL_A=$(GNL)get_next_line.a
-LIBFT_A=$(LIBFT)libft.a
-MLX_A=$(MLX)build/libmlx42.a
+MLX42=MLX42/
+GNL_A=get_next_line/get_next_line.a
+LIBFT_A=libft/libft.a
+MLX42_A=MLX42/libmlx42.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 RM=rm -f
@@ -13,10 +13,22 @@ INC= -I$(GNL) -I$(LIBFT) -I$(MLX)include -I.
 SCRS=fdf.c 
 OBJS=$(SCRS:.c=.o)
 
-all: $(NAME)
+all: build-MLX42 $(NAME)
 
-$(NAME): $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A)
+$(NAME): $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A) 
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX_A) -lXext -lX11 -lm -lglfw
+
+init-submodule:
+	git submodule update --init --recursive
+
+build-MLX42: init-submodule
+	@if [ ! -f "$(MLX42_A)" ]; then \
+		echo $(MLX42_A); \
+		echo "$(MLX42_A) file not found, running CMake..."; \
+		cd $(MLX42) && cmake . && make; \
+	else \
+    	echo "$(MLX42_A) file exists, skipping CMake..."; \
+	fi
 
 $(GNL_A):
 	$(MAKE) -C $(GNL)
