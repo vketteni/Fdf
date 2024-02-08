@@ -6,7 +6,7 @@
 #    By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/04 11:45:41 by vketteni          #+#    #+#              #
-#    Updated: 2024/02/04 11:47:52 by vketteni         ###   ########.fr        #
+#    Updated: 2024/02/08 21:11:11 by vketteni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SCRS = get_next_line.c get_next_line_utils.c
 OBJS = $(SCRS:.c=.o)
 NAME = get_next_line.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 AR = ar rcs
 INC = get_next_line.h

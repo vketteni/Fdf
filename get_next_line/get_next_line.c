@@ -6,13 +6,23 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:31:37 by vketteni          #+#    #+#             */
-/*   Updated: 2024/01/06 14:58:52 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/08 23:24:23 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+static int	reset_buffer(int reset, int *buff_pos)
+{
+	if (reset)
+	{
+		*buff_pos = 0;
+		return (1);		
+	}
+	return (0);
+}
+
+char	*get_next_line(int fd, int reset)
 {
 	static char	buffer[BUFFER_SIZE] = {0};
 	static int	buff_pos = 0;
@@ -22,7 +32,7 @@ char	*get_next_line(int fd)
 	line = NULL;
 	while (1)
 	{
-		if (buff_pos == 0)
+		if (buff_pos == 0 || reset_buffer(reset, &buff_pos))
 		{
 			bytes_read = read(fd, buffer, BUFFER_SIZE);
 			if (line && bytes_read == 0)

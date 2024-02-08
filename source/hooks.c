@@ -6,17 +6,14 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:52:03 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/07 08:59:48 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:08:03 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/fdf.h"
+#include "../include/fdf.h"
 
-void	ft_button_hook(void *param)
+void	ft_button_hook(t_param *param)
 {
-	t_param *param;
-	
-	param = (t_param *)param;
 	if (mlx_is_key_down(param->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(param->mlx);
 	if (mlx_is_key_down(param->mlx, MLX_KEY_UP))
