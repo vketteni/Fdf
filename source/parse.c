@@ -6,24 +6,11 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:24:46 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/08 23:55:12 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:57:39 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-static t_coordinate	*create_coordinate(int x, int y, int z)
-{
-	t_coordinate	*coordinate;
-
-	coordinate = (t_coordinate *)malloc(sizeof(t_coordinate));
-	if (coordinate == NULL)
-		return (NULL);
-	coordinate->x = x;
-	coordinate->y = y;
-	coordinate->z = z;
-	return (coordinate);
-}
 
 static t_fdf_parser	*initialize_parser(void)
 {
@@ -53,7 +40,7 @@ static int	parse_line(t_fdf_parser *parser, t_param *param)
 	while (*(parser->row)[parser->h_pos] != '\n')
 	{
 		coordinate = create_coordinate(parser->h_pos, parser->v_pos,
-				ft_atoi(parser->row[parser->h_pos]));
+				ft_atoi(parser->row[parser->h_pos]), param);
 		if (coordinate == NULL)
 		{
 			free_strarr(parser->row);

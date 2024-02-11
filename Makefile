@@ -11,17 +11,23 @@ RM=rm -f
 INC= -I$(GNL) -I$(LIBFT) -I$(MLX)include -I.
 SCRS= source/fdf.c \
 	source/parse.c \
+	source/checker.c \
+	source/coordinate.c \
+	source/isometric.c \
 	source/free.c \
 	source/hooks.c \
 	source/initialize.c \
+	source/bresenham.c \
 	source/utils/utils1.c \
+	source/utils/utils2.c \
+	source/utils/draw_utils1.c \
 	
 OBJS=$(SCRS:.c=.o)
 
 all: build-MLX42 $(NAME) 
 
 $(NAME): $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX42_A) 
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX42_A) -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.9/lib/"
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX42_A) -lm -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.9/lib/"
 
 init-submodule:
 	git submodule update --init --recursive

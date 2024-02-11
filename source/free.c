@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:33:53 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/08 17:37:46 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:58:17 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	free_coordinates(t_coordinate ***all_coordinates)
 }
 void	terminate_param(t_param *param)
 {
+	free(param->min_coord);
+	free(param->max_coord);
 	if (param->all_coordinates)
 		free_coordinates(param->all_coordinates);
 	if (param->image)

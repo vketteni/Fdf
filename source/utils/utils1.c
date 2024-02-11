@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:50:52 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/08 23:50:48 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/10 20:21:58 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	fdf_row_num(char *fdf_file)
 	horizontal_positions = 0;
 	fdf_fd = open(fdf_file, O_RDONLY);
 	if (fdf_fd < 0)
-		return (-1);
+		return (0);
 	line = get_next_line(fdf_fd, RESET_BUFFER);
 	while (line != NULL)
 	{
@@ -53,7 +53,7 @@ int	fdf_column_num(char *fdf_file)
 	vertical_positions = 0;
 	fdf_fd = open(fdf_file, O_RDONLY);
 	if (fdf_fd < 0)
-		return (-1);
+		return (0);
 	first_line = get_next_line(fdf_fd, RESET_BUFFER);
 	if (first_line)
 	{
@@ -69,4 +69,17 @@ int	fdf_column_num(char *fdf_file)
 	free(first_line);
 	close(fdf_fd);
 	return (vertical_positions);
+}
+
+int	is_number(char *str)
+{
+	if (*str == '-')
+		str++;
+	while (*str != '\0')
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }
