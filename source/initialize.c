@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:31:49 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 14:18:15 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:50:04 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ int	initialize_image_boundaries(int fdf_row_num, int fdf_column_num,
 	while (fdf_row_num > (WIDTH * f) / WINDOW_IMAGE_RATIO)
 		f++;
 	param->img_width = WIDTH * f;
-	param->img_width_offset = param->img_width / 2;
+	param->img_width_offset = param->img_width / 4;
 	f = 1;
 	while (fdf_column_num > (HEIGHT * f) / WINDOW_IMAGE_RATIO)
 		f++;
 	param->img_height = HEIGHT * f;
-	param->img_height_offset = param->img_height / 2;
+	param->img_height_offset = param->img_height / 4;
 	return (0);
 }
 
@@ -100,9 +100,9 @@ int	initialize_param(char *fdf_file, t_param *param)
 		return (-1);
 	if (fdf_parse(fdf_file, param) == -1)
 		return (-1);
-	if (initialize_min_max(param) == -1)
-		return (-1);
 	if (isometric(param->all_coordinates, param) == -1)
+		return (-1);
+	if (initialize_min_max(param) == -1)
 		return (-1);
 	if (normalize_scale_center(param->all_coordinates, param) == -1)
 		return (-1);
