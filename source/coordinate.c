@@ -6,18 +6,16 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 20:37:43 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 01:27:40 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:06:44 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-t_coordinate	*create_coordinate(int x, int y, int z, t_param *param)
+t_coordinate	*create_coordinate(int x, int y, int z)
 {
 	t_coordinate	*coordinate;
 
-	if (!param)
-		return (NULL);
 	coordinate = (t_coordinate *)malloc(sizeof(t_coordinate));
 	if (!coordinate)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:09:16 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 02:02:20 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:08:44 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define WIDTH 520	* 2
-# define HEIGHT 520	* 2
+# define WIDTH 520 * 2
+# define HEIGHT 520 * 2
 # define PI 3.14159265
 # define WINDOW_IMAGE_RATIO 4
 # define OFFSET_HEIGHT_RATIO 4
@@ -61,9 +61,9 @@ typedef struct s_fdf_checker
 
 typedef struct s_coordinate
 {
-	double			x;
-	double			y;
-	double			z;
+	uint32_t		x;
+	uint32_t		y;
+	int32_t			z;
 }					t_coordinate;
 
 typedef struct s_param
@@ -91,7 +91,7 @@ void				free_coordinates(t_coordinate ***all_coordinates);
 void				terminate_param(t_param *param);
 void				iso_projection_hook(void *p);
 void				button_hook(void *p);
-t_coordinate		*create_coordinate(int x, int y, int z, t_param *param);
+t_coordinate		*create_coordinate(int x, int y, int z);
 t_coordinate		*max_coord(t_coordinate ***all_coordinates);
 t_coordinate		*min_coord(t_coordinate ***all_coordinates);
 int					isometric(t_coordinate ***all_coordinates, t_param *param);

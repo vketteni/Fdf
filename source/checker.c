@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:41:54 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/09 14:16:17 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 14:15:56 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static t_fdf_checker	*initialize_fdf_checker(void)
 static void	terminate_checker(t_fdf_checker *checker)
 {
 	if (checker->line)
+	{
 		free(checker->line);
-	if (*(checker->line_elements))
-		free_strarr(checker->line_elements);
+		if (*(checker->line_elements))
+			free_strarr(checker->line_elements);
+	}
 	close(checker->fdf_fd);
 	free(checker);
 }

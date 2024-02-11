@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 10:45:58 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/10 15:42:17 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:17:24 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	create_image(t_param *param)
 	}
 	// ft_memset(param->image->pixels, 0xFF, param->image->width
 	// 	* param->image->height * BPP);
-	if (mlx_image_to_window(param->mlx, param->image, 0, 0) == -1)
+	if (mlx_image_to_window(param->mlx, param->image, 500, 500) == -1)
 	{
 		mlx_close_window(param->mlx);
 		puts(mlx_strerror(mlx_errno));
@@ -38,7 +38,7 @@ static int	create_image(t_param *param)
 
 static int	create_window(t_param *param)
 {
-	mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx_set_setting(MLX_DECORATED, true);
 	param->mlx = mlx_init(WIDTH, HEIGHT, "42Berlin", true);
 	if (!(param->mlx))
 	{
