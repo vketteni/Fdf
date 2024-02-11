@@ -1,28 +1,28 @@
 {
     "configurations": [
-		// {
-		// 	"name": "(lldb) Launch",
-		// 	"type": "cppdbg",
-		// 	"request": "launch",
-		// 	"program": "${workspaceFolder}/fdf",
-		// 	"args": ["${workspaceFolder}/test_maps/2x2.fdf"],
-		// 	"stopAtEntry": false,
-		// 	"cwd": "${fileDirname}",
-		// 	"environment": [],
-		// 	"externalConsole": false,
-		// 	"MIMode": "lldb"
-		// },
-    {
-        "name": "(gdb) Launch",
-        "type": "cppdbg",
-        "request": "launch",
-        "program": "${workspaceFolder}/fdf",
-        "args": ["${workspaceFolder}/test_maps/2x2.fdf"],
-        "stopAtEntry": false,
-        "cwd": "${fileDirname}",
-        "environment": [],
-        "externalConsole": false,
-        "MIMode": "gdb",
-    }
+		{
+			"name": "(lldb) Launch",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/fdf",
+			"args": ["${workspaceFolder}/test_maps/42.fdf"],
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb"
+		},
+    // {
+    //     "name": "(gdb) Launch",
+    //     "type": "cppdbg",
+    //     "request": "launch",
+    //     "program": "${workspaceFolder}/fdf",
+    //     "args": ["${workspaceFolder}/test_maps/2x2.fdf"],
+    //     "stopAtEntry": false,
+    //     "cwd": "${fileDirname}",
+    //     "environment": [],
+    //     "externalConsole": false,
+    //     "MIMode": "gdb",
+    // }
     ]
 }

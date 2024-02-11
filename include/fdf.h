@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:09:16 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 14:08:44 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:46:44 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define WIDTH 520 * 2
 # define HEIGHT 520 * 2
 # define PI 3.14159265
+# define ANG_30 0.52359877
 # define WINDOW_IMAGE_RATIO 4
 # define OFFSET_HEIGHT_RATIO 4
 # define BPP sizeof(int32_t)
@@ -61,9 +62,9 @@ typedef struct s_fdf_checker
 
 typedef struct s_coordinate
 {
-	uint32_t		x;
-	uint32_t		y;
-	int32_t			z;
+	float			x;
+	float			y;
+	float			z;
 }					t_coordinate;
 
 typedef struct s_param

@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:50:52 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/10 20:21:58 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:41:31 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	fdf_column_num(char *fdf_file)
 		first_line_split = ft_split(first_line, ' ');
 		if (first_line_split != NULL)
 		{
-			while (*first_line_split[vertical_positions] != '\n'
-				&& first_line_split[vertical_positions])
+			while (first_line_split[vertical_positions]
+				&& *first_line_split[vertical_positions] != '\n')
 				vertical_positions++;
 			free_strarr(first_line_split);
 		}

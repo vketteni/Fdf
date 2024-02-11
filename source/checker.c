@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 12:41:54 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 14:15:56 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:31:18 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ static int	fdf_check_line(t_fdf_checker *checker)
 	line_elem = (checker->line_elements)[i];
 	while (line_elem && *line_elem != '\n')
 	{
-		if (!is_number(line_elem))
+		if (!is_number(line_elem) && !ft_strchr(line_elem, '\n'))
 			return (-1);
 		line_elem = (checker->line_elements)[++i];
 	}
-	if (line_elem == NULL)
-		return (-1);
+	// if (line_elem == NULL)
+	// 	return (-1);
 	if (checker->elem_per_line == -1)
 		checker->elem_per_line = i;
 	else if (checker->elem_per_line != i)

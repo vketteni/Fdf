@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:24:46 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 14:16:17 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:42:29 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	parse_line(t_fdf_parser *parser, t_param *param)
 		free_strarr(parser->row);
 		return (-1);
 	}
-	while (*(parser->row)[parser->h_pos] != '\n')
+	while ((parser->row)[parser->h_pos] && *(parser->row)[parser->h_pos] != '\n')
 	{
 		coordinate = create_coordinate(parser->h_pos, parser->v_pos,
 				ft_atoi(parser->row[parser->h_pos]));
