@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 08:52:03 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 18:11:09 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:08:02 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	button_hook(void *p)
 void	iso_projection_hook(void *p)
 {
 	t_param	*param;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	param = (t_param *)p;
@@ -42,9 +42,11 @@ void	iso_projection_hook(void *p)
 		j = 0;
 		while (param->all_coordinates[i][j])
 		{
-			draw_line(param->all_coordinates[i][j], param->all_coordinates[i][j + 1], param);
+			draw_line(param->all_coordinates[i][j], param->all_coordinates[i][j
+				+ 1], param);
 			if (param->all_coordinates[i + 1])
-				draw_line(param->all_coordinates[i][j], param->all_coordinates[i + 1][j], param);
+				draw_line(param->all_coordinates[i][j], param->all_coordinates[i
+					+ 1][j], param);
 			j++;
 		}
 		i++;

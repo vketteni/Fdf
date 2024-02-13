@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:08:28 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 01:21:11 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:10:09 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
 		ft_putendl_fd("Pixel (y value) is out of bounds.", 2);
 		exit(EXIT_FAILURE);
 	}
-
-	pixelstart = &image->pixels[(y * image->width + x) * BPP];
+	pixelstart = &image->pixels[(y * image->width + x) * sizeof(int32_t)];
 	draw_pixel(pixelstart, color);
 }
 

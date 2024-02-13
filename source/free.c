@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:33:53 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/10 20:58:17 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:13:52 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_coordinates(t_coordinate ***all_coordinates)
 		free(all_coordinates[i++]);
 	}
 }
+
 void	terminate_param(t_param *param)
 {
 	free(param->min_coord);

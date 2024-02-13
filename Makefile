@@ -20,6 +20,7 @@ SCRS= source/fdf.c \
 	source/bresenham.c \
 	source/utils/utils1.c \
 	source/utils/utils2.c \
+	source/utils/utils3.c \
 	source/utils/draw_utils1.c \
 	
 OBJS=$(SCRS:.c=.o)

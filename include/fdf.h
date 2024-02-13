@@ -6,12 +6,20 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:09:16 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 17:46:44 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:46:06 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+# define WIDTH 1040
+# define HEIGHT 1040
+# define PI 3.14159265
+# define ANG_30 0.52359877
+# define WINDOW_IMAGE_RATIO 1
+# define OFFSET_HEIGHT_RATIO 4
+
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
@@ -20,14 +28,6 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-# define WIDTH 520 * 2
-# define HEIGHT 520 * 2
-# define PI 3.14159265
-# define ANG_30 0.52359877
-# define WINDOW_IMAGE_RATIO 4
-# define OFFSET_HEIGHT_RATIO 4
-# define BPP sizeof(int32_t)
 
 typedef struct s_bresenham_drawer
 {
@@ -93,8 +93,8 @@ void				terminate_param(t_param *param);
 void				iso_projection_hook(void *p);
 void				button_hook(void *p);
 t_coordinate		*create_coordinate(int x, int y, int z);
-t_coordinate		*max_coord(t_coordinate ***all_coordinates);
-t_coordinate		*min_coord(t_coordinate ***all_coordinates);
+int	max_coord(t_coordinate *coord ,t_param *param);
+int	min_coord(t_coordinate *coord ,t_param *param);
 int					isometric(t_coordinate ***all_coordinates, t_param *param);
 int					initialize_min_max(t_param *param);
 void				bresenham(t_coordinate *start, t_coordinate *end,
@@ -117,9 +117,18 @@ void				draw_line(t_coordinate *start, t_coordinate *end,
 int					fdf_column_num(char *fdf_file);
 int					fdf_row_num(char *fdf_file);
 void				free_strarr(char **strarr);
-int					is_number(char *str);
+int					is_integer(char *str);
 int					normalize(t_coordinate *coord, t_param *param);
 int					center(t_coordinate *coord, t_param *param);
 int					scale(t_coordinate *coord, t_param *param);
+int					coord_iter(t_param *param, int (*f)(t_coordinate *,
+							t_param *));
+int					adjust_z(t_coordinate *coord, t_param *param);
+int					adjust_extrem(t_param *param);
+int					is_hexadecimal(char *str);
+int					rotate_coordinate_z(t_coordinate *coord, t_param *param);
+int					rotate_coordinate_x(t_coordinate *coord, t_param *param);
+int					rotate_coordinate_y(t_coordinate *coord, t_param *param);
+int					rotate_fdf_model(t_param *param);
 
 #endif

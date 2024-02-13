@@ -9,6 +9,7 @@
 		"ratio": "c",
 		"complex": "c",
 		"mlx42.h": "c",
-		"mlx42_int.h": "c"
+		"mlx42_int.h": "c",
+		"cmath": "c"
 	}
 }

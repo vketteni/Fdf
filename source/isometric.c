@@ -6,56 +6,21 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:29:36 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 18:03:46 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:03:53 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-// static void	initialize_iso_transformation_matrix(float transformation_matrix[4][4])
-// {
-// 	transformation_matrix[0][0] = 1;
-// 	transformation_matrix[0][1] = sqrt(2) / 2;
-// 	transformation_matrix[0][2] = sqrt(2) / 2;
-// 	transformation_matrix[0][3] = 1;
-// 	transformation_matrix[1][0] = 0;
-// 	transformation_matrix[1][1] = sqrt(2) / 2;
-// 	transformation_matrix[1][2] = -sqrt(2) / 2;
-// 	transformation_matrix[1][3] = 1;
-// 	transformation_matrix[2][0] = -sqrt(2) / 3;
-// 	transformation_matrix[2][1] = -sqrt(2) / 6;
-// 	transformation_matrix[2][2] = -sqrt(2) / 6;
-// 	transformation_matrix[2][3] = 1;
-// 	transformation_matrix[3][0] = 1;
-// 	transformation_matrix[3][1] = 1;
-// 	transformation_matrix[3][2] = 1;
-// 	transformation_matrix[3][2] = 1;
-// }
-
-// static t_coordinate	*convert_to_isometric0(t_coordinate *coord,
-		// t_param *param)
-// {
-// 	uint32_t	x_iso;
-// 	uint32_t	y_iso;
-// 	float		rad;
-
-// 	rad = param->angle * PI / 180;
-// 	x_iso = (uint32_t)(((float)coord->x - (float)coord->y + 1) * cos(rad)
-// 			- (float)coord->x
-// 			+ ((float)param->max_coord->y + (float)param->max_coord->x)
-				// * cos(rad));
-// 	y_iso = (uint32_t)(((float)coord->x + (float)coord->y + 1) * sin(rad)
-// 			- (float)coord->z - (float)coord->x * sin(rad)
-// 			+ (float)param->max_coord->z);
-// 	coord->x = x_iso;
-// 	coord->y = y_iso;
-// 	return (coord);
-// }
-
 static t_coordinate	*convert_to_isometric1(t_coordinate *coord)
 {
-	coord->x = (coord->x - coord->y) * cos(ANG_30);
-	coord->y = (coord->x + coord->y) * sin(ANG_30) - coord->z;
+	float	previous_x;
+	float	previous_y;
+
+	previous_x = coord->x;
+	previous_y = coord->y;
+	coord->x = (previous_x - previous_y) * cos(ANG_30);
+	coord->y = (previous_x + previous_y) * sin(ANG_30) - coord->z;
 	return (coord);
 }
 
@@ -72,7 +37,8 @@ int	isometric(t_coordinate ***all_coordinates, t_param *param)
 		j = 0;
 		while (all_coordinates[i][j])
 		{
-			all_coordinates[i][j] = convert_to_isometric1(all_coordinates[i][j]);
+			all_coordinates[i][j]
+				= convert_to_isometric1(all_coordinates[i][j]);
 			if (!all_coordinates[i][j])
 				return (-1);
 			j++;

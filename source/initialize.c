@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:31:49 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 20:50:04 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:57:57 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,40 +54,43 @@ int	initialize_image_boundaries(int fdf_row_num, int fdf_column_num,
 	return (0);
 }
 
-int	initialize_min_max(t_param *param)
+int	initialize_min(t_param *param)
 {
-	if (!param)
+	t_coordinate	*min;
+	t_coordinate	*first;
+
+	if (!param || param->all_coordinates)
 		return (-1);
-	param->min_coord = min_coord(param->all_coordinates);
-	param->max_coord = max_coord(param->all_coordinates);
-	if (!param->min_coord || !param->max_coord)
+	first = param->all_coordinates[0][0];
+	min = create_coordinate(first->x, first->y, first->z);
+	if (!min)
+		return (-1);
+	param->min_coord = min;
+	if (coord_iter(param, min_coord) == -1)
 		return (-1);
 	return (0);
 }
 
-void	set_null(t_param *param)
+int	initialize_max(t_param *param)
 {
-	if (param)
-	{
-		param->mlx = NULL;
-		param->image = NULL;
-		param->all_coordinates = NULL;
-		param->max_coord = NULL;
-		param->min_coord = NULL;
-		param->fdf_row_num = 0;
-		param->fdf_column_num = 0;
-		param->img_width_offset = 0;
-		param->img_width = 0;
-		param->img_height_offset = 0;
-		param->img_height = 0;
-		param->angle = 0;
-	}
+	t_coordinate	*max;
+	t_coordinate	*first;
+
+	if (!param || param->all_coordinates)
+		return (-1);
+	first = param->all_coordinates[0][0];
+	max = create_coordinate(first->x, first->y, first->z);
+	if (!max)
+		return (-1);
+	param->max_coord = max;
+	if (coord_iter(param, max_coord) == -1)
+		return (-1);
+	return (0);
 }
 
 int	initialize_param(char *fdf_file, t_param *param)
 {
 	set_null(param);
-	param->angle = 30;
 	param->fdf_row_num = fdf_row_num(fdf_file);
 	param->fdf_column_num = fdf_column_num(fdf_file);
 	if (fdf_checker(fdf_file) == -1)
@@ -100,9 +103,11 @@ int	initialize_param(char *fdf_file, t_param *param)
 		return (-1);
 	if (fdf_parse(fdf_file, param) == -1)
 		return (-1);
+	if (rotate_fdf_model(param) == -1)
+		return (-1);
 	if (isometric(param->all_coordinates, param) == -1)
 		return (-1);
-	if (initialize_min_max(param) == -1)
+	if (initialize_min(param) == -1 || initialize_max(param) == -1)
 		return (-1);
 	if (normalize_scale_center(param->all_coordinates, param) == -1)
 		return (-1);

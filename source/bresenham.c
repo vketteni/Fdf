@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:51:37 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/10 20:06:51 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:11:39 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_bresenham_drawer	*initialize_bresenham_drawer(t_coordinate *start,
 
 void	bresenham(t_coordinate *start, t_coordinate *end, t_param *param)
 {
-	t_bresenham_drawer *drawer;
+	t_bresenham_drawer	*drawer;
 
 	drawer = initialize_bresenham_drawer(start, end);
 	if (!drawer)

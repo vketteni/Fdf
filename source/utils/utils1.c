@@ -6,11 +6,11 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:50:52 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 18:41:31 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:02:16 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../../include/fdf.h"
 
 void	free_strarr(char **strarr)
 {
@@ -71,13 +71,32 @@ int	fdf_column_num(char *fdf_file)
 	return (vertical_positions);
 }
 
-int	is_number(char *str)
+int	is_integer(char *str)
 {
 	if (*str == '-')
 		str++;
 	while (*str != '\0')
 	{
 		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	is_hexadecimal(char *str)
+{
+	while (*str && ft_isdigit(*str))
+		str++;
+	if (*str != ',')
+		return (0);
+	if (ft_strncmp(",0x", str, 3) != 0)
+		return (0);
+	str += 3;
+	while (*str != '\0')
+	{
+		if (!ft_isdigit(*str) && ft_tolower(*str) < 'a'
+			&& ft_tolower(*str) > 'F')
 			return (0);
 		str++;
 	}

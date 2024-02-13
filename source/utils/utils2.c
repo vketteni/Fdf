@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:26:37 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/11 20:51:09 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:33:23 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	center(t_coordinate *coord, t_param *param)
 
 int	normalize(t_coordinate *coord, t_param *param)
 {
-	double min_x;
-	double min_y;
-	double max_x;
-	double max_y;
+	double	min_x;
+	double	min_y;
+	double	max_x;
+	double	max_y;
 
 	if (!coord || !param)
 		return (-1);
@@ -45,5 +45,30 @@ int	normalize(t_coordinate *coord, t_param *param)
 	max_y = param->max_coord->y;
 	coord->x = (coord->x - min_x) / (max_x - min_x);
 	coord->y = (coord->y - min_y) / (max_y - min_y);
+	return (0);
+}
+
+int	adjust_extrem(t_param *param)
+{
+	t_coordinate	*max;
+
+	if (!param)
+		return (-1);
+	max = max_coord(param);
+	if (!max)
+		return (-1);
+	if (max->z > 25)
+	{
+		if (coord_iter(param, adjust_z) == -1)
+			return (-1);
+	}
+	return (0);
+}
+
+int	adjust_z(t_coordinate *coord, t_param *param)
+{
+	if (!coord || !param)
+		return (-1);
+	coord->z = coord->z / (param->fdf_row_num);
 	return (0);
 }
