@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 19:26:37 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/13 19:33:23 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:47:49 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,24 @@ int	adjust_extrem(t_param *param)
 
 	if (!param)
 		return (-1);
-	max = max_coord(param);
-	if (!max)
+	max = create_coordinate(param->all_coordinates[0][0]->x,
+			param->all_coordinates[0][0]->y,
+			param->all_coordinates[0][0]->y);
 		return (-1);
+	if (coord_iter(param, max_coord) == -1)
+	{
+		free(max);
+		return (-1);
+	}
 	if (max->z > 25)
 	{
 		if (coord_iter(param, adjust_z) == -1)
+		{
+			free(max);
 			return (-1);
+		}
 	}
+	free(max);
 	return (0);
 }
 

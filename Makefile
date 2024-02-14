@@ -21,6 +21,7 @@ SCRS= source/fdf.c \
 	source/utils/utils1.c \
 	source/utils/utils2.c \
 	source/utils/utils3.c \
+	source/utils/utils4.c \
 	source/utils/draw_utils1.c \
 	
 OBJS=$(SCRS:.c=.o)
@@ -31,28 +32,30 @@ $(NAME): $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX42_A)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL_A) $(LIBFT_A) $(MLX42_A) -lm -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.9/lib/"
 
 init-submodule:
-	git submodule update --init --recursive
+	@git submodule update --init --recursive
 
 build-MLX42: init-submodule
 	@if [ ! -f "$(MLX42_A)" ]; then \
 		echo $(MLX42_A); \
 		echo "$(MLX42_A) file not found, running CMake..."; \
 		cd $(MLX42) && cmake . && make; \
-	else \
-    	echo "$(MLX42_A) file exists, skipping CMake..."; \
 	fi
 
 $(GNL_A):
-	$(MAKE) -C $(GNL)
+	@printf "\033[0;32mCompiling: GNL\n\033[0m"
+	@$(MAKE) -C $(GNL)
 
 $(LIBFT_A):
-	$(MAKE) -C $(LIBFT)
+	@printf "\033[0;32mCompiling: LIBFT\n\033[0m"
+	@$(MAKE) -C $(LIBFT)
 
 $(MLX42_A):
-	$(MAKE) -C $(MLX)
+	@printf "\033[0;32mCompiling: MLX42\n\033[0m"
+	@$(MAKE) -C $(MLX)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@printf "\033[0;32mCompiling: $<\n\033[0m"
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
 	${MAKE} -C $(GNL) clean

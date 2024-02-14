@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:31:49 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/13 19:57:57 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:20:19 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	initialize_min(t_param *param)
 	t_coordinate	*min;
 	t_coordinate	*first;
 
-	if (!param || param->all_coordinates)
+	if (!param || !param->all_coordinates)
 		return (-1);
 	first = param->all_coordinates[0][0];
 	min = create_coordinate(first->x, first->y, first->z);
@@ -76,7 +76,7 @@ int	initialize_max(t_param *param)
 	t_coordinate	*max;
 	t_coordinate	*first;
 
-	if (!param || param->all_coordinates)
+	if (!param || !param->all_coordinates)
 		return (-1);
 	first = param->all_coordinates[0][0];
 	max = create_coordinate(first->x, first->y, first->z);

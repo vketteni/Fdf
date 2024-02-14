@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 11:09:16 by vketteni          #+#    #+#             */
-/*   Updated: 2024/02/13 19:46:06 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/14 12:41:03 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_param
 	t_coordinate	*max_coord;
 	int				fdf_row_num;
 	int				fdf_column_num;
-	int				angle;
 	uint32_t		img_width;
 	uint32_t		img_width_offset;
 	uint32_t		img_height;
@@ -93,8 +92,8 @@ void				terminate_param(t_param *param);
 void				iso_projection_hook(void *p);
 void				button_hook(void *p);
 t_coordinate		*create_coordinate(int x, int y, int z);
-int	max_coord(t_coordinate *coord ,t_param *param);
-int	min_coord(t_coordinate *coord ,t_param *param);
+int					max_coord(t_coordinate *coord, t_param *param);
+int					min_coord(t_coordinate *coord, t_param *param);
 int					isometric(t_coordinate ***all_coordinates, t_param *param);
 int					initialize_min_max(t_param *param);
 void				bresenham(t_coordinate *start, t_coordinate *end,
@@ -130,5 +129,6 @@ int					rotate_coordinate_z(t_coordinate *coord, t_param *param);
 int					rotate_coordinate_x(t_coordinate *coord, t_param *param);
 int					rotate_coordinate_y(t_coordinate *coord, t_param *param);
 int					rotate_fdf_model(t_param *param);
+void				set_null(t_param *param);
 
 #endif
