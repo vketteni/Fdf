@@ -6,7 +6,7 @@
 /*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 14:05:52 by vketteni          #+#    #+#             */
-/*   Updated: 2024/01/06 02:00:18 by vketteni         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:03:02 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_realloc(char *old_memory, size_t new_size)
 	return (new_memory);
 }
 
-int	ft_strlen(char *str)
+static int	ft_strlen(char *str)
 {
 	char	*start;
 
